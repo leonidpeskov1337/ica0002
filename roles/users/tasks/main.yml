@@ -11,13 +11,11 @@ user:
   
   
 -name: Set authorized keys taken from url using lookup
-  ansible.posix.authorized_key:
     user: juri
     state: present
     key: "{{ lookup('url', 'https://github.com/hudolejev.keys', split_lines=False) }}"
     
 -name: Set authorized keys taken from url using lookup
-  ansible.posix.authorized_key:
     user: roman
     state: present
     key: "{{ lookup('url', 'https://github.com/romankuchin.keys', split_lines=False) }}"
