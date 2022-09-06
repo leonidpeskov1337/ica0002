@@ -2,7 +2,6 @@
   - name: Web server
     hosts: web_servers
     roles:
-      - test_connection
       - users
     become: yes
     
