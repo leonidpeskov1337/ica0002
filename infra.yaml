@@ -2,6 +2,7 @@
   - name: Web server
     hosts: web_servers
     roles:
+      - agama
       - users
       - nginx
     become: yes

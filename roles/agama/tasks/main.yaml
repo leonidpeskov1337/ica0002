@@ -1,0 +1,36 @@
+---
+# tasks file for agama
+
+- name: Add the user 'agama'
+  ansible.builtin.user:
+    name: agama
+    
+- name: Create a directory /opt/agama if it does not exist
+  ansible.builtin.file:
+    path: /opt/agama
+    state: directory
+    owner: agama
+    mode: '0755'
+    
+    
+- name: Install python agama part 1
+  become: yes
+  ansible.builtin.apt:
+    name: python3
+    state: latest
+    update_cache: yes
+    
+    
+- name: Install flask agama part 2
+  become: yes
+  ansible.builtin.apt:
+    name: python3-flask
+    state: latest
+    update_cache: yes
+    
+- name: Install sql achemistry agama part 3
+  become: yes
+  ansible.builtin.apt:
+    name: python3-flask-sqlalchemy
+    state: latest
+    update_cache: yes
