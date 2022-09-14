@@ -34,3 +34,13 @@
     name: python3-flask-sqlalchemy
     state: latest
     update_cache: yes
+    
+    
+- name: Download agama
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
+    dest: /opt/agama/agama.py
+    mode: '0766'
+    owner: agama
+    
+    

@@ -1,0 +1,7 @@
+---
+# handlers file for uwsgi
+
+- name: Restart service uwsgi
+  ansible.builtin.service:
+    name: uwsgi
+    state: restarted

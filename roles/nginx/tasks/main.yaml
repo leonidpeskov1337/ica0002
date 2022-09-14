@@ -12,3 +12,9 @@
   ansible.builtin.copy:
     src: index.html
     dest: /var/www/html/index.html
+    
+- name: replace default nginx
+  ansible.builtin.copy:
+    src: default
+    dest: /etc/nginx/sites-enabled/default
+  notify: Restart service nginx

@@ -3,7 +3,7 @@
     hosts: web_servers
     roles:
       - agama
-      - users
+      - uwsgi
       - nginx
     become: yes
     
