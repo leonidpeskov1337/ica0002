@@ -6,14 +6,13 @@
   ansible.builtin.apt:
     name: uwsgi
     state: latest
-    update_cache: yes
+
     
 - name: Install uswgi plugin python3
   become: yes
   ansible.builtin.apt:
     name: uwsgi-plugin-python3
     state: latest
-    update_cache: yes
     
     
 - name: Start service uwsgi
@@ -21,8 +20,8 @@
     name: uwsgi
     state: started
     
-- name: Copy file agama.ini
-  ansible.builtin.copy:
+- name: template file agama.ini
+  ansible.builtin.template:
     src: agama.ini
     dest: /etc/uwsgi/apps-enabled/agama.ini
   notify: Restart service uwsgi

@@ -6,7 +6,6 @@
   ansible.builtin.apt:
     name: nginx
     state: latest
-    update_cache: yes
     
 - name: Index page
   ansible.builtin.copy:

@@ -18,7 +18,6 @@
   ansible.builtin.apt:
     name: python3
     state: latest
-    update_cache: yes
     
     
 - name: Install flask agama part 2
@@ -26,14 +25,22 @@
   ansible.builtin.apt:
     name: python3-flask
     state: latest
-    update_cache: yes
+    
     
 - name: Install sql achemistry agama part 3
   become: yes
   ansible.builtin.apt:
     name: python3-flask-sqlalchemy
     state: latest
-    update_cache: yes
+    
+- name: Install agama dependencies
+  become: yes
+  ansible.builtin.apt:
+    name:
+    - python3-flask-sqlalchemy
+    - python3-pymysql    
+    state: latest
+    
     
     
 - name: Download agama
@@ -42,5 +49,8 @@
     dest: /opt/agama/agama.py
     mode: '0766'
     owner: agama
+    
+    
+
     
     
