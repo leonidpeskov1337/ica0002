@@ -1,0 +1,35 @@
+---
+# tasks file for mysql
+
+- name: Install mysql
+  become: yes
+  ansible.builtin.apt:
+    name: mysql-server
+    state: latest
+    
+- name: Install python3-mysql
+  become: yes
+  ansible.builtin.apt:
+    name: python3-pymysql
+    state: latest
+    
+- name: Copy file override.cnf
+  ansible.builtin.copy:
+    src: override.cnf
+    dest: /etc/mysql/mysql.conf.d/override.cnf
+  notify: Restart service mysql
+  
+  
+- name: create MySQL database
+  community.mysql.mysql_db:
+    name: "{{ mysql_database }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    
+- name: create MySQL user
+  community.mysql.mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    host: "%"
+    priv: "{{ mysql_database }}.*:ALL"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    
