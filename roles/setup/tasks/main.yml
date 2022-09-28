@@ -1,0 +1,5 @@
+---
+# tasks file for setup
+
+- name: Gather facts
+  ansible.builtin.setup:

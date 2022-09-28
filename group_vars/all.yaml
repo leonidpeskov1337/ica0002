@@ -1,4 +1,4 @@
-mysql_host: 192.168.43.55
+mysql_host: 192.168.43.143
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -8,4 +8,21 @@ mysql_password: !vault |
           35663633346166303633623830333636386139653136303864356231663639616132633331656264
           3632343934343065610a343864363437616339313561393130336264393736333333373235653138
           6536
+
+int_ip_1: 192.168.42.185
+int_ip_2: 192.168.43.57
+
+
+local_network: 192.168.42.0/23
+localhost: 127.0.0.0/8
+docker_network: 172.17.0.0/16
+
+
+dns_forwarders: 
+    - 1.1.1.1
+    - 8.8.8.8
+    - 9.9.9.9
+    - 9.9.9.10
+    
+domain_name: dungeonmaster.io
 

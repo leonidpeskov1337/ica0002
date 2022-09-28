@@ -1,0 +1,36 @@
+- name: Install bind9
+  become: yes
+  ansible.builtin.apt:
+    name: bind9
+    state: latest
+    
+    
+- name: Start bind
+  ansible.builtin.service:
+    name: bind9
+    state: started
+    enabled: yes          
+          
+
+    
+- name: Apply new configuration for bind
+  ansible.builtin.template:
+    src: named.conf.options
+    dest: /etc/bind/named.conf.options
+  notify: restart bind
+        
+  
+    
+- name: Apply database configuration
+  ansible.builtin.template:
+    src: db.dungeonmaster.io
+    dest: /var/lib/bind/db.dungeonmaster.io
+  notify: Reload with rndc
+  
+  
+  
+- name: Add configuration
+  ansible.builtin.template:
+      src: named.conf.local
+      dest: /etc/bind/named.conf.local
+  notify: restart bind

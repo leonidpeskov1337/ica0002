@@ -1,0 +1,26 @@
+acl lan {
+    {{ local_network }};
+    {{ localhost }};
+    {{ docker_network }};
+
+};
+options {
+        directory "/var/lib/bind/";
+
+        forwarders {
+           {% for dns in dns_forwarders %}
+                {{ dns }};
+           {% endfor %}
+        };
+
+        allow-query {
+            lan;
+        };
+        dnssec-validation no;
+
+};
+
+
+
+
+
