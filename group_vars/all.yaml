@@ -1,4 +1,4 @@
-mysql_host: 192.168.43.143
+mysql_host: leonidpeskov1337-2
 mysql_database: agama
 mysql_user: agama
 mysql_password: !vault |
@@ -9,8 +9,6 @@ mysql_password: !vault |
           3632343934343065610a343864363437616339313561393130336264393736333333373235653138
           6536
 
-int_ip_1: 192.168.42.185
-int_ip_2: 192.168.43.57
 
 
 local_network: 192.168.42.0/23

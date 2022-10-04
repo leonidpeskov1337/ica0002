@@ -19,9 +19,15 @@
     roles:
       - agama
       - uwsgi
-      - nginx
     become: yes
-    
+  
+  
+  - name: Install nginx all hosts
+    hosts: all
+    become: yes
+    roles:
+      - nginx
+  
     
     
   - name: DNS server
@@ -29,12 +35,26 @@
     become: yes
     roles:
       - bind
-
+         
+  
   - name: Resolved configuration
     hosts: all
     become: yes
     roles:
       - dns_client    
+      
+  - name: Install node exporters
+    hosts: all
+    become: yes
+    roles:
+      - node_exporter
+      
+  
+  - name: Install prometheus
+    hosts: prometheus_servers
+    become: yes
+    roles:
+      - prometheus
     
 
  

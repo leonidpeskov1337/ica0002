@@ -1,0 +1,25 @@
+---
+# tasks file for prometheus
+
+
+  - name: Install prometheus
+    ansible.builtin.apt:
+        name: prometheus
+
+  - name: Start prometheus
+    service:
+        name: prometheus
+        state: started
+        enabled: yes
+
+  - name: Add configuration for prometheus
+    ansible.builtin.template:
+      src: prometheus.yml
+      dest: /etc/prometheus/prometheus.yml
+    notify: restart prometheus
+
+  - name: Adjust configuration for prometheus
+    ansible.builtin.template:
+      src: prometheus
+      dest: /etc/default/prometheus
+    notify: restart prometheus

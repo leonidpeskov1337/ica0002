@@ -1,0 +1,12 @@
+---
+# tasks file for node_exporter
+
+  - name: Install node exporters
+    ansible.builtin.apt:
+        name: prometheus-node-exporter
+
+  - name: Start node exporters
+    service:
+        name: prometheus-node-exporter
+        state: started
+        enabled: yes

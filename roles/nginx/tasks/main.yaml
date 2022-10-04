@@ -7,13 +7,13 @@
     name: nginx
     state: latest
     
-- name: Index page
-  ansible.builtin.copy:
-    src: index.html
-    dest: /var/www/html/index.html
+# - name: Index page
+#  ansible.builtin.copy:
+#    src: index.html
+#    dest: /var/www/html/index.html
     
-- name: replace default nginx
-  ansible.builtin.copy:
+- name: replace default nginx config
+  ansible.builtin.template:
     src: default
     dest: /etc/nginx/sites-enabled/default
   notify: Restart service nginx
