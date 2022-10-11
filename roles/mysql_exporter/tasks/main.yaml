@@ -1,0 +1,19 @@
+---
+# tasks file for mysql-exporter
+
+  - name: Install MySQL exporter
+    apt:
+        name: prometheus-mysqld-exporter
+        state: present
+
+  - name: Start MySQL exporter
+    service:
+        name: prometheus-mysqld-exporter
+        state: started
+        enabled: yes
+
+  - name: Copy configuration
+    template: 
+        src: my.cnf.j2
+        dest: /var/lib/prometheus/.my.cnf
+    notify: restart mysql-exporter

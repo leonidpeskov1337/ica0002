@@ -1,0 +1,11 @@
+---
+# handlers file for grafana
+
+  - name: Restart grafana
+    service:
+        name: grafana-server
+        state: restarted
+
+  - name: Reset pass
+    shell: grafana-cli admin reset-admin-password {{ grafana_pass }}
+    no_log: true

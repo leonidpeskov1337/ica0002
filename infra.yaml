@@ -11,7 +11,7 @@
     hosts: db_servers
     roles:
       - mysql
-      - bind
+      - mysql_exporter
     become: yes
     
   - name: Web server
@@ -27,6 +27,7 @@
     become: yes
     roles:
       - nginx
+      - nginx_exporter
   
     
     
@@ -34,7 +35,7 @@
     hosts: dns_servers
     become: yes
     roles:
-      - bind
+      - bind_exporter
          
   
   - name: Resolved configuration
@@ -56,5 +57,10 @@
     roles:
       - prometheus
     
+  - name: Grafana
+    hosts: grafana
+    become: yes
+    roles:
+      - grafana
 
  

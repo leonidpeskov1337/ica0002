@@ -1,0 +1,7 @@
+---
+# handlers file for nginx_exporter
+
+  - name: restart nginx-exporter
+    service:
+        name: prometheus-nginx-exporter
+        state: restarted

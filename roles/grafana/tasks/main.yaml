@@ -1,0 +1,21 @@
+---
+# tasks file for grafana
+
+  - name: Add an Apt signing key for grafana
+    ansible.builtin.apt_key:
+        url: https://packages.grafana.com/gpg.key
+
+  - name: Add grafana repo
+    ansible.builtin.apt_repository:
+        repo: deb https://packages.grafana.com/oss/deb stable main
+
+  - name: Install grafana
+    ansible.builtin.apt:
+        name: grafana
+    notify: Reset pass
+
+  - name: Start grafana
+    service:
+        name: grafana-server
+        state: started
+        enabled: yes

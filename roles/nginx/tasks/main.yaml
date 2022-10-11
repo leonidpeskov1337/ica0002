@@ -14,6 +14,6 @@
     
 - name: replace default nginx config
   ansible.builtin.template:
-    src: default
+    src: default.j2
     dest: /etc/nginx/sites-enabled/default
   notify: Restart service nginx
