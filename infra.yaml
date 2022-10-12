@@ -7,6 +7,12 @@
       - setup
     become: yes
 
+  - name: Collect info about all VMs
+    hosts: all 
+    tasks:
+      - setup:
+
+
   - name: Database server
     hosts: db_servers
     roles:
@@ -35,6 +41,7 @@
     hosts: dns_servers
     become: yes
     roles:
+      - bind 
       - bind_exporter
          
   
