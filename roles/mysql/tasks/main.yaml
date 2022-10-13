@@ -12,6 +12,14 @@
   ansible.builtin.apt:
     name: python3-pymysql
     state: latest
+
+
+- name:  Start service MySql
+  service:
+      name: mysql
+      state: started
+      enabled: yes  # enabled to run on system boot.
+
     
 - name: Copy file override.cnf
   ansible.builtin.copy:
@@ -25,15 +33,15 @@
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
     
-- name: create MySQL user
+
+- name: MySQL user
   community.mysql.mysql_user:
     name: "{{ mysql_user }}"
     password: "{{ mysql_password }}"
     host: "%"
     priv: "{{ mysql_database }}.*:ALL"
     login_unix_socket: /var/run/mysqld/mysqld.sock
-    
-    
+      
 - name: MySQL-exporter user
   community.mysql.mysql_user:
     name: "{{ mysql_exporter_user }}"

@@ -5,4 +5,10 @@
     service:
         name: grafana-server
         state: restarted
+  
+  - name: Reset pass
+    shell: |
+      sleep 60
+      grafana-cli admin reset-admin-password {{ grafana_pass }}
+    no_log: true
 

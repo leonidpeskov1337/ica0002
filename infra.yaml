@@ -1,73 +1,75 @@
 ---
-
   - name: Init
-    hosts: web_servers, db_servers
+    hosts: 
+      - web_servers
+      - db_servers
+    become: yes
     roles:
       - init
-      - setup
-    become: yes
-
+    
   - name: Collect info about all VMs
     hosts: all 
     tasks:
       - setup:
 
-
-  - name: Database server
-    hosts: db_servers
-    roles:
-      - mysql
-      - mysql_exporter
-    become: yes
-    
-  - name: Web server
-    hosts: web_servers
-    roles:
-      - agama
-      - uwsgi
-    become: yes
-  
-  
-  - name: Install nginx all hosts
-    hosts: all
-    become: yes
-    roles:
-      - nginx
-      - nginx_exporter
-  
-    
-    
-  - name: DNS server
-    hosts: dns_servers
-    become: yes
-    roles:
-      - bind 
-      - bind_exporter
-         
-  
-  - name: Resolved configuration
-    hosts: all
-    become: yes
-    roles:
-      - dns_client    
-      
-  - name: Install node exporters
-    hosts: all
-    become: yes
-    roles:
-      - node_exporter
-      
-  
   - name: Install prometheus
     hosts: prometheus_servers
     become: yes
     roles:
       - prometheus
-    
+
+
+  - name: Database server
+    hosts: db_servers
+    become: yes
+    roles:
+      - mysql
+      - mysql_exporter
+
+  - name: Set up a web server
+    hosts: web_servers
+    become: yes
+    roles:
+      - agama
+      - uwsgi
+      
+
+
+  - name: Install nginx 
+    hosts: all
+    become: yes
+    roles:
+      - nginx
+      - nginx_exporter
+
+  - name: DNS server
+    hosts: dns_servers
+    become: yes
+    roles:
+      - bind
+      - bind_exporter
+  
+  - name: Resolved configuration
+    hosts: all
+    become: yes
+    roles:
+      - dns_client
+
+  - name: Install node exporters
+    hosts: all
+    become: yes
+    roles:
+      - node_exporter
+
+  - name: Install prometheus
+    hosts: prometheus_servers
+    become: yes
+    roles:
+      - prometheus
+
+      
   - name: Grafana
     hosts: grafana
     become: yes
     roles:
       - grafana
-
- 

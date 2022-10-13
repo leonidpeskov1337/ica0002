@@ -1,6 +1,4 @@
 ---
-# tasks file for grafana
-
   - name: Add an Apt signing key for grafana
     ansible.builtin.apt_key:
         url: https://packages.grafana.com/gpg.key
@@ -12,6 +10,7 @@
   - name: Install grafana
     ansible.builtin.apt:
         name: grafana
+    notify: Reset pass
 
   - name: Start grafana
     service:
@@ -20,26 +19,30 @@
         enabled: yes
         
         
-  - name: Reset pass
-    shell: grafana-cli admin reset-admin-password {{ grafana_pass }}
-    notify:
-      - Restart grafana
-      
-      
   - name: Copy config for grafana
     template:
         src: grafana.ini.j2
         dest: /etc/grafana/grafana.ini
     notify: Restart grafana
-
-
+    
+    
   - name: Setup Default datasource
     template:
       src: sample.yaml.j2
       dest: /etc/grafana/provisioning/datasources/sample.yaml
     notify: Restart grafana
-
+    
   - name: Copy conf for dashboards
     template:
       src: dashboard.yaml.j2
       dest: /etc/grafana/provisioning/dashboards/sample.yaml
+      
+      
+  - name: Setup dashboards
+    copy:
+      src: main.json
+      dest: /etc/grafana/provisioning/dashboards/main.json
+    notify: Restart grafana
+    
+    
+    
