@@ -73,3 +73,31 @@
     become: yes
     roles:
       - grafana
+      
+      
+  - name: Install influxDB
+    hosts: influxdb
+    become: yes
+    roles:
+      - influxdb
+      
+     
+  - name: Create service
+    hosts: pinger
+    become: yes
+    roles:
+      - pinger
+      
+
+  - name: Rsyslog
+    hosts: all
+    become: yes
+    roles:
+      - rsyslog
+      
+      
+  - name: Install influxDB exporter
+    hosts: influxdb
+    become: yes
+    roles:
+      - influxdb_exporter  

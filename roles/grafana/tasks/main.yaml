@@ -10,8 +10,7 @@
   - name: Install grafana
     ansible.builtin.apt:
         name: grafana
-    notify: Reset pass
-
+    
   - name: Start grafana
     service:
         name: grafana-server
@@ -32,6 +31,21 @@
       dest: /etc/grafana/provisioning/datasources/sample.yaml
     notify: Restart grafana
     
+    
+
+  - name: Setup influxdb datasource
+    template:
+      src: influxdb.yaml.j2
+      dest: /etc/grafana/provisioning/datasources/influxdb.yaml
+    notify: Restart grafana  
+
+  - name: Setup influxdb telegraf datasource
+    ansible.builtin.template:
+      src: rsyslog.yaml.j2
+      dest: /etc/grafana/provisioning/datasources/rsyslog.yaml
+    notify: Restart grafana
+    
+    
   - name: Copy conf for dashboards
     template:
       src: dashboard.yaml.j2
@@ -42,7 +56,20 @@
     copy:
       src: main.json
       dest: /etc/grafana/provisioning/dashboards/main.json
+    notify: Restart grafana      
+      
+  - name: Setup dashboard telegraf
+    copy:
+      src: rsyslog.json
+      dest: /etc/grafana/provisioning/dashboards/rsyslog.json 
     notify: Restart grafana
+
+    
+  - name: Reset pass
+    shell: |
+      grafana-cli admin reset-admin-password {{ grafana_pass }}
+
+
     
     
     

@@ -1,0 +1,16 @@
+---
+  - name: Install rsyslog
+    ansible.builtin.apt:
+      name: rsyslog
+
+  - name: Copy conf rsyslog
+    ansible.builtin.copy:
+      src: 10-telegraf.conf
+      dest: /etc/rsyslog.d/10-telegraf.conf
+    notify: Restart rsyslog
+
+  - name: Start syslog
+    ansible.builtin.service:
+      name: rsyslog
+      state: started
+      enabled: yes

@@ -5,6 +5,7 @@
     apt:
         name: prometheus-mysqld-exporter
         state: present
+    register: prom_exporter_installed
 
   - name: Copy configuration
     template: 
@@ -15,11 +16,10 @@
   - name: Pause for 10 sec
     pause:
       seconds: 10
+    when: prom_exporter_installed.changed
       
   - name: Start MySQL exporter
     service:
         name: prometheus-mysqld-exporter
         state: started
         enabled: yes
-        
-        

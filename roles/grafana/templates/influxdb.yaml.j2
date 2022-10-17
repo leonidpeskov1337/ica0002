@@ -1,0 +1,13 @@
+apiVersion: 1
+
+datasources:
+  - name: influxdb
+    type: influxdb
+    access: proxy
+    database: latency
+    user:
+    url: http://leonidpeskov1337-1:8086
+    jsonData:
+      httpMode: GET
+    secureJsonData:
+      password:
