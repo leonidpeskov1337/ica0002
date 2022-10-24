@@ -10,6 +10,7 @@
   - name: Install grafana
     ansible.builtin.apt:
         name: grafana
+    notify: Reset pass
     
   - name: Start grafana
     service:
@@ -63,11 +64,6 @@
       src: rsyslog.json
       dest: /etc/grafana/provisioning/dashboards/rsyslog.json 
     notify: Restart grafana
-
-    
-  - name: Reset pass
-    shell: |
-      grafana-cli admin reset-admin-password {{ grafana_pass }}
 
 
     
