@@ -1,0 +1,19 @@
+---
+# tasks file for influxdb_backup
+
+
+  - name: Create the directory
+    ansible.builtin.file:
+      path: /home/backup/influxdb
+      state: directory
+      owner: backup
+      group: backup
+      mode: 0755
+
+  - name: Copy configuration
+    ansible.builtin.template:
+      src: influxdb-backup.j2
+      dest: /etc/cron.d/influxdb-backup
+      owner: root
+      group: backup
+      mode: 0755

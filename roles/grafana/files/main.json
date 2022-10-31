@@ -175,7 +175,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -269,7 +269,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -370,7 +370,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -463,7 +463,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -558,7 +558,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -684,7 +684,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
@@ -763,7 +763,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
@@ -773,7 +773,7 @@
           "refId": "A"
         }
       ],
-      "title": "Bind status",
+      "title": "Nginx status",
       "type": "stat"
     },
     {
@@ -842,7 +842,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
@@ -899,7 +899,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
@@ -978,7 +978,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.2",
+      "pluginVersion": "8.2.3",
       "targets": [
         {
           "exemplar": true,
@@ -1006,5 +1006,5 @@
   "timezone": "",
   "title": "Main",
   "uid": "hBacEId7z",
-  "version": 3
+  "version": 1
 }

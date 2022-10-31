@@ -25,11 +25,19 @@ RPO - 28 days
 
 #Versioning and retention
 
-Incremental backups are done automatically every day at 01:00.
-Full backups are done on every Saturday at 01:00.
+MySql Agama:
+
+mysqldump is done automatically every day at 23:45 UTC. 
+Incremental backups are done automatically every day at 00:15 UTC.
+Full backups are done on every Saturday at 00:00 UTC.
 First incremental backup stores difference from the last created full backup.
-Backups are retained for 28 days.
-The backups that are older than 28 days are deleted at 03:00 every Saturday.
+Backups are retained for 28 days, 28 versions can be stored at the same time.
+The backups that are older than 28 days are deleted at 01:00 UTC every Saturday.
+
+InfluxDB Telegraf:
+
+Backup of telegraf database is done automatically every day at 00:30 UTC.
+The previous dump is deleted before new one is created.
 
 #Usability checks
 
@@ -43,13 +51,8 @@ Backup restoration should be done only if it was detected and confirmed that the
 
 #RTO
 RTO - 2 hours
+
 #SLA validity
 The procedure is valid until the new procedure is approved.
 The system administrator of the storage devices is responsible for updating the procedure.
 The exception should be discussed and documented with the system administrator.
-
-
-## CONTACTS
-
-Telefon:
-Email:

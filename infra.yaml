@@ -24,6 +24,7 @@
     roles:
       - mysql
       - mysql_exporter
+      - mysql_backup
 
   - name: Set up a web server
     hosts: web_servers
@@ -79,7 +80,7 @@
     become: yes
     roles:
       - influxdb
-      
+      - influxdb_backup
      
   - name: Create service
     hosts: pinger
