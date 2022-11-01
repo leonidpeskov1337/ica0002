@@ -6,7 +6,7 @@
       name: backup
       home: /home/backup
       shell: /bin/bash
-      generate_ssh_key: yes    
+      generate_ssh_key: yes
 
   - name: Create the directory
     ansible.builtin.file:
@@ -14,16 +14,14 @@
       state: directory
       owner: backup
       group: backup
-      mode: 0644
-
+      mode: 0755
+  
   - name: Install duplicity
     ansible.builtin.apt:
       name: duplicity
 
   - name: Create a file
     ansible.builtin.template:
-      owner: root
-      group: root
       src: known_hosts.j2
       dest: /home/backup/.ssh/known_hosts
-      mode: 0644
+      owner: backup
