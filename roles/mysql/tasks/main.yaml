@@ -1,52 +1,65 @@
 ---
 # tasks file for mysql
 
-- name: Install mysql
-  become: yes
-  ansible.builtin.apt:
-    name: mysql-server
-    state: latest
-    
-- name: Install python3-mysql
-  become: yes
-  ansible.builtin.apt:
-    name: python3-pymysql
-    state: latest
+  - name: Install MySql package
+    apt:
+        name: 
+          - mysql-server
+          - python3-pymysql
+        state: present
 
-
-- name:  Start service MySql
-  service:
-      name: mysql
-      state: started
-      enabled: yes  # enabled to run on system boot.
-
-    
-- name: Copy file override.cnf
-  ansible.builtin.copy:
-    src: override.cnf
-    dest: /etc/mysql/mysql.conf.d/override.cnf
-  notify: Restart service mysql
+  - name:  Start service MySql
+    service:
+        name: mysql
+        state: started
+        enabled: yes  # enabled to run on system boot.
   
-  
-- name: create MySQL database
-  community.mysql.mysql_db:
-    name: "{{ mysql_database }}"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-    
+  - name: MySQL database
+    community.mysql.mysql_db:
+      name: "{{ mysql_database }}"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
 
-- name: MySQL user
-  community.mysql.mysql_user:
-    name: "{{ mysql_user }}"
-    password: "{{ mysql_password }}"
-    host: "%"
-    priv: "{{ mysql_database }}.*:ALL"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
+  - name: Change configuration
+    ansible.builtin.template:
+      src: override.cnf
+      dest: /etc/mysql/mysql.conf.d/override.cnf
+    notify: Restart service mysql
+
+  - name: Force handler to run
+    meta: flush_handlers
+
+  - name: MySQL user
+    community.mysql.mysql_user:
+      name: "{{ mysql_user }}"
+      password: "{{ mysql_password }}"
+      host: "%"
+      priv: "{{ mysql_database }}.*:ALL"
+      login_unix_socket: /var/run/mysqld/mysqld.sock
       
-- name: MySQL-exporter user
-  community.mysql.mysql_user:
-    name: "{{ mysql_exporter_user }}"
-    password: "{{ mysql_exporter_pass }}"
-    host: "%"
-    priv:
-      '*.*': 'PROCESS,REPLICATION CLIENT,SELECT'
-    login_unix_socket: /var/run/mysqld/mysqld.sock
+  - name: MySQL-exporter user
+    community.mysql.mysql_user:
+      name: "{{ mysql_exporter_user }}"
+      password: "{{ mysql_exporter_pass }}"
+      host: "%"
+      priv:
+        '*.*': 'PROCESS,REPLICATION CLIENT,SELECT'
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - name: Add MySQL user
+    community.mysql.mysql_user:
+      name: "{{ mysql2_user }}"
+      password: "{{ mysql_password }}"
+      host: "%"
+      priv: 
+        '*.*': 'REPLICATION SLAVE'
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+
+  - name: Change read only mode
+    community.mysql.mysql_variables:
+      variable: read_only
+      value: "{{ 'OFF' if inventory_hostname == mysql_host else 'ON' }}"
+      mode: persist
+      login_unix_socket: /var/run/mysqld/mysqld.sock
+    notify:
+      - Reset MySQL source
+      - Reset MySQL replica

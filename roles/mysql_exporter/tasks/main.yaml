@@ -23,3 +23,9 @@
         name: prometheus-mysqld-exporter
         state: started
         enabled: yes
+  
+  - name: Copy configuration mysqld
+    ansible.builtin.template: 
+        src: prometheus-mysqld-exporter.j2
+        dest: /etc/default/prometheus-mysqld-exporter
+    notify: restart mysql-exporter
