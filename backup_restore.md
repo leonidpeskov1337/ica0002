@@ -10,7 +10,7 @@
     1. Login as backup: 
         sudo su backup
     2. Run command: 
-        duplicity --no-encryption restore rsync://leonidpeskov1337@backup.captop.io//home/leonidpeskov1337/mysql /home/backup/restore/
+        duplicity --no-encryption restore rsync://leonidpeskov1337@backup.dungeonmaster.io//home/leonidpeskov1337/mysql /home/backup/restore/
     Command to restore the backup, run on the managed host as root:
     1. Login as root: 
         sudo su -
@@ -31,7 +31,7 @@
     1. Login as backup: 
         sudo su backup
     2. Run command: 
-        duplicity --no-encryption restore rsync://leonidpeskov1337@backup.captop.io//home/leonidpeskov1337/influxdb /home/backup/restore/
+        duplicity --no-encryption restore rsync://leonidpeskov1337@backup.dungeonmaster.io//home/leonidpeskov1337/influxdb /home/backup/restore/
 
     Command to restore the backup, run on the managed host as root:
     1. Login as root:
