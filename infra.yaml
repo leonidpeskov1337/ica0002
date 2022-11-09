@@ -61,12 +61,6 @@
     roles:
       - node_exporter
 
-  - name: Install prometheus
-    hosts: prometheus_servers
-    become: yes
-    roles:
-      - prometheus
-
       
   - name: Grafana
     hosts: grafana

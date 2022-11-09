@@ -1,6 +1,4 @@
 ---
-# tasks file for mysql
-
   - name: Install MySql package
     apt:
         name: 
@@ -16,14 +14,17 @@
   
   - name: MySQL database
     community.mysql.mysql_db:
-      name: "{{ mysql_database }}"
+      name: "{{ mysql_database }}"    
       login_unix_socket: /var/run/mysqld/mysqld.sock
+    notify:
+      - Reset MySQL source
+      - Reset MySQL replica
 
   - name: Change configuration
     ansible.builtin.template:
       src: override.cnf
       dest: /etc/mysql/mysql.conf.d/override.cnf
-    notify: Restart service mysql
+    notify: restart mysql
 
   - name: Force handler to run
     meta: flush_handlers

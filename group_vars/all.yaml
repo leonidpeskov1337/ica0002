@@ -10,7 +10,7 @@ mysql_password: !vault |
           3632343934343065610a343864363437616339313561393130336264393736333333373235653138
           6536
 
-
+mysql_backup_host: leonidpeskov1337-2
 
 local_network: 192.168.42.0/23
 localhost: 127.0.0.0/8
