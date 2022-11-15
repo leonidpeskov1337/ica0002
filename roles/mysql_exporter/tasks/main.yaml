@@ -7,6 +7,14 @@
         state: present
     register: prom_exporter_installed
 
+
+  - name: Create a directory /var/lib/prometheus if it does not exist
+    ansible.builtin.file:
+      path: /var/lib/prometheus
+      state: directory
+      mode: '0755'
+  
+
   - name: Copy configuration
     template: 
         src: my.cnf.j2
@@ -23,7 +31,7 @@
         name: prometheus-mysqld-exporter
         state: started
         enabled: yes
-  
+        
   - name: Copy configuration mysqld
     ansible.builtin.template: 
         src: prometheus-mysqld-exporter.j2

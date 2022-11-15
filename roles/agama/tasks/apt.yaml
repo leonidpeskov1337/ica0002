@@ -1,0 +1,55 @@
+---
+# tasks file for agama
+
+- name: Add the user 'agama'
+  ansible.builtin.user:
+    name: agama
+    shell: /bin/bash
+    
+- name: Create a directory /opt/agama if it does not exist
+  ansible.builtin.file:
+    path: /opt/agama
+    state: directory
+    owner: agama
+    mode: '0755'
+    
+    
+- name: Install python agama part 1
+  become: yes
+  ansible.builtin.apt:
+    name: python3
+    state: latest
+    
+    
+- name: Install flask agama part 2
+  become: yes
+  ansible.builtin.apt:
+    name: python3-flask
+    state: latest
+    
+    
+- name: Install sql achemistry agama part 3
+  become: yes
+  ansible.builtin.apt:
+    name: python3-flask-sqlalchemy
+    state: latest
+    
+- name: Install agama dependencies
+  become: yes
+  ansible.builtin.apt:
+    name:
+    - python3-flask-sqlalchemy
+    - python3-pymysql    
+    state: latest
+    
+- name: Download agama
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
+    dest: /opt/agama/agama.py
+    mode: '0766'
+    owner: agama
+    
+    
+
+    
+    
