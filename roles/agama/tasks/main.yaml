@@ -9,6 +9,13 @@
         url: https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile
         dest: /opt/agama/Dockerfile
 
+
+  - name: Download agama application
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
+      dest: /opt/agama/agama.py
+
+
   - name: Build docker image
     community.docker.docker_image:
       name: agama
