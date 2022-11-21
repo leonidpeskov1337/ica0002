@@ -8,6 +8,7 @@ leonidpeskov1337-1
 
 [web_servers]
 leonidpeskov1337-1
+leonidpeskov1337-2
 
 
 [dns_servers]
@@ -27,3 +28,7 @@ leonidpeskov1337-1
 
 [telegraf]
 leonidpeskov1337-1
+
+[keepalived]
+leonidpeskov1337-1
+leonidpeskov1337-2

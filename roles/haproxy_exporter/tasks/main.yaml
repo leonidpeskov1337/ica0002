@@ -1,0 +1,19 @@
+---
+# tasks file for haproxy_exporter
+
+
+  - name: Install HAProxy exporter
+    ansible.builtin.apt:
+      name: prometheus-haproxy-exporter
+  
+  - name: Start HAProxy exporter
+    service:
+        name: prometheus-haproxy-exporter
+        state: started
+        enabled: yes
+
+  - name: Copy configuration for HAProxy exporter
+    ansible.builtin.template:
+      src: exporter.j2
+      dest: /etc/default/prometheus-haproxy-exporter
+    notify: restart haproxy-exporter

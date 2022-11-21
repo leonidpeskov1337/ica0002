@@ -40,3 +40,15 @@ scrape_configs:
       - targets:
         {% for vm in groups['influxdb'] %}- {{ vm }}:9424
         {% endfor %}
+        
+  - job_name: 'HAProxy'
+    static_configs:
+      - targets:
+        {% for vm in groups['keepalived'] %}- {{ vm }}:9101
+        {% endfor %}     
+
+  - job_name: 'Keepalived'
+    static_configs:
+      - targets:
+        {% for vm in groups['keepalived'] %}- {{ vm }}:9165
+        {% endfor %}  
