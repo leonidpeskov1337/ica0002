@@ -4,28 +4,26 @@
         - bind9
         - python3-dnspython
     
-    
+   
 - name: Start bind
   ansible.builtin.service:
     name: bind9
     state: started
     enabled: yes          
           
-
-    
+   
 - name: Apply new configuration for bind
   ansible.builtin.template:
     src: named.conf.options.j2
     dest: /etc/bind/named.conf.options
   notify: restart bind
-        
-  
+          
     
 - name: Apply database configuration
   when: inventory_hostname in groups['dns_master']
   ansible.builtin.template:
       src: db.dungeonmaster.io.j2
-      dest: /var/cache/bind/db.captop.io
+      dest: /var/cache/bind/db.dungeonmaster.io
       force: no
   notify: Reload with rndc
   
@@ -46,7 +44,6 @@
   
 - name: Execute handlers
   meta: flush_handlers
-  
   
 - name: Add A records
   when: inventory_hostname == groups['dns_master'][0]

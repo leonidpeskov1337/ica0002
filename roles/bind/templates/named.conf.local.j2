@@ -33,5 +33,5 @@ zone "{{ reverse_domain }}" {
     type slave;
     masters { {{ hostvars[groups['dns_master'][0]]['ansible_default_ipv4']['address'] }}; };
 {% endif %}
-    file "db.captop.reversed";
+    file "db.dungeonmaster.reversed.j2";
 };
