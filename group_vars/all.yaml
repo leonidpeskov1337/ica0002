@@ -35,6 +35,30 @@ dns_forwarders:
     
 domain_name: dungeonmaster.io
 
+dns_transfer_key: O6IcvcgTlIndCGdmm9V5O3cdzb2WSkILcTIRfk/Stao=
+
+
+
+
+dns_update_key: 3dkJaEw3PUzf1lzCg8kPhJHP7cQNzCMzUB3z9Rizg4I=
+
+a_records:
+    backup: 192.168.42.156
+
+cname_records:
+    grafana: "{{ groups['grafana'][0] }}"
+    influxdb: "{{ groups['influxdb'][0] }}"
+    lb1: "{{ groups['keepalived'][0] }}"
+    lb2: "{{ groups['keepalived'][1] }}"
+    mysql1: "{{ groups['db_servers'][0] }}"
+    mysql2: "{{ groups['db_servers'][1] }}"
+    ns1: "{{ groups['dns_servers'][0] }}"
+    ns2: "{{ groups['dns_servers'][1] }}"
+    prometheus: "{{ groups['prometheus_servers'][0] }}"
+    web1: "{{ groups['web_servers'][0] }}"
+    web2: "{{ groups['web_servers'][1] }}"
+
+reverse_domain: 42.168.192.in-addr.arpa
 
 mysql_exporter_user: exporter
 mysql_exporter_pass: !vault |

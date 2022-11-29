@@ -1,5 +1,0 @@
-zone "{{ domain_name }}" {
-    type primary;
-    file "db.dungeonmaster.io";
-
-};

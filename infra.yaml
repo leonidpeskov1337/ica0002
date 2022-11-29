@@ -17,14 +17,6 @@
     roles:
       - prometheus
 
-
-  - name: Database server
-    hosts: db_servers
-    become: yes
-    roles:
-      - mysql
-      - mysql_exporter
-      - mysql_backup
       
   - name: DNS server
     hosts: dns_servers
@@ -32,6 +24,7 @@
     roles:
       - bind
       - bind_exporter
+    tags: dns
       
       
   - name: Resolved configuration
@@ -40,13 +33,23 @@
     roles:
       - dns_client
  
-
+ 
+  - name: Database server
+    hosts: db_servers
+    become: yes
+    roles:
+      - mysql
+      - mysql_exporter
+      - mysql_backup
+      
+      
   - name: HAProxy
     hosts: keepalived
     become: yes
     roles:
       - haproxy
       - haproxy_exporter
+    tags: pro 
 
   - name: Keepalived
     hosts: keepalived
@@ -90,6 +93,7 @@
     become: yes
     roles:
       - grafana
+    tags: gr
       
       
   - name: Install influxDB

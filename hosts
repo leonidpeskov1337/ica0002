@@ -1,5 +1,5 @@
-leonidpeskov1337-1  ansible_host=193.40.156.67 ansible_port=16022 ansible_user=ubuntu
-leonidpeskov1337-2  ansible_host=193.40.156.67 ansible_port=8822 ansible_user=ubuntu
+leonidpeskov1337-1  ansible_host=193.40.156.67 ansible_port=30522 ansible_user=ubuntu
+leonidpeskov1337-2  ansible_host=193.40.156.67 ansible_port=31422 ansible_user=ubuntu
 
 [db_servers]
 leonidpeskov1337-2
@@ -11,8 +11,15 @@ leonidpeskov1337-1
 leonidpeskov1337-2
 
 
-[dns_servers]
+[dns_master]
 leonidpeskov1337-2
+
+[dns_slaves]
+leonidpeskov1337-1
+
+[dns_servers:children]
+dns_master
+dns_slaves
 
 [prometheus_servers]
 leonidpeskov1337-2
