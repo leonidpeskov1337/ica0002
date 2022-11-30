@@ -5,7 +5,7 @@ acl lan {
 
 };
 options {
-        directory "/var/lib/bind/";
+        directory "/var/cache/bind";
 
         forwarders {
            {% for dns in dns_forwarders %}
@@ -32,6 +32,3 @@ key "dns_update_key" {
 	algorithm hmac-sha256;
 	secret "{{ dns_update_key }}";
 };
-
-
-

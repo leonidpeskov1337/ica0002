@@ -12,3 +12,9 @@
     notify:
       - Reload systemd
       - Restart keepalived
+
+  - name: Start and enable
+    ansible.builtin.service:
+      name: keepalived-exporter
+      state: started
+      enabled: yes

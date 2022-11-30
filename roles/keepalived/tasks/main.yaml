@@ -16,6 +16,7 @@
       src: keepalived_script.j2
       dest: /home/keepalived_script
       mode: 777
+    notify: restart keepalived
 
   - name: Copy conf for keepalived
     ansible.builtin.template:

@@ -1,78 +1,76 @@
-- name: Install bind package
-  ansible.builtin.apt:
-      name: 
-        - bind9
-        - python3-dnspython
-    
-   
-- name: Start bind
-  ansible.builtin.service:
-    name: bind9
-    state: started
-    enabled: yes          
-          
-   
-- name: Apply new configuration for bind
-  ansible.builtin.template:
-    src: named.conf.options.j2
-    dest: /etc/bind/named.conf.options
-  notify: restart bind
-          
-    
-- name: Apply database configuration
-  when: inventory_hostname in groups['dns_master']
-  ansible.builtin.template:
-      src: db.dungeonmaster.io.j2
-      dest: /var/cache/bind/db.dungeonmaster.io
-      force: no
-  notify: Reload with rndc
-  
-  
-- name: A db configuration reversed
-  when: inventory_hostname in groups['dns_master']
-  ansible.builtin.template:
-      src: db.dungeonmaster.reversed.j2
-      dest: /var/cache/bind/db.dungeonmaster.reversed
-      force: no
-  notify: Reload with rndc
-  
-- name: Add configuration
-  ansible.builtin.template:
-      src: named.conf.local.j2
-      dest: /etc/bind/named.conf.local
-  notify: restart bind
-  
-- name: Execute handlers
-  meta: flush_handlers
-  
-- name: Add A records
-  when: inventory_hostname == groups['dns_master'][0]
-  community.general.nsupdate:
-    key_name: "dns_update_key"
-    key_algorithm: "hmac-sha256"
-    key_secret: "{{ dns_update_key }}"
-    server: "localhost"
-    zone: "{{ domain_name }}."
-    record: "{{ item.key }}.{{ domain_name }}."
-    type: "A"     
-    value: "{{ item.value }}"
-  loop: "{{ a_records | dict2items }}"
+---
+  - name: Install bind package
+    ansible.builtin.apt:
+        name: 
+          - bind9
+          - python3-dnspython
 
-- name: Add CNAME records
-  when: inventory_hostname == groups['dns_master'][0]
-  community.general.nsupdate:
-    key_name: "dns_update_key"
-    key_algorithm: "hmac-sha256"
-    key_secret: "{{ dns_update_key }}"
-    server: "localhost"
-    zone: "{{ domain_name }}."
-    record: "{{ item.key }}.{{ domain_name }}."
-    type: "CNAME"
-    value: "{{ item.value }}.{{ domain_name }}."
-  loop: "{{ cname_records | dict2items }}"
+  - name: Start bind
+    ansible.builtin.service:
+        name: bind9
+        state: started
+        enabled: yes
 
-- name: Start bind
-  ansible.builtin.service:
-      name: bind9
-      state: started
-      enabled: yes
+  - name: Add configuration for bind
+    ansible.builtin.template:
+      src: named.conf.options.j2
+      dest: /etc/bind/named.conf.options
+    no_log: true 
+    notify: restart bind
+
+  - name: Add db configuration
+    when: inventory_hostname in groups['dns_master']
+    ansible.builtin.template:
+        src: db.dungeonmaster.io.j2
+        dest: /var/cache/bind/db.captop.io
+        force: no
+    notify: Reload with rndc
+
+  - name: Add db configuration reversed
+    when: inventory_hostname in groups['dns_master']
+    ansible.builtin.template:
+        src: db.dungeonmaster.reversed.j2
+        dest: /var/cache/bind/db.captop.reversed
+        force: no
+    notify: Reload with rndc
+
+  - name: Add configuration
+    ansible.builtin.template:
+        src: named.conf.local.j2
+        dest: /etc/bind/named.conf.local
+    notify: restart bind
+
+  - name: Execute handlers
+    meta: flush_handlers
+
+  - name: Add A records
+    when: inventory_hostname == groups['dns_master'][0]
+    community.general.nsupdate:
+      key_name: "dns_update_key"
+      key_algorithm: "hmac-sha256"
+      key_secret: "{{ dns_update_key }}"
+      server: "localhost"
+      zone: "{{ domain_name }}."
+      record: "{{ item.key }}.{{ domain_name }}."
+      type: "A"     
+      value: "{{ item.value }}"
+    loop: "{{ a_records | dict2items }}"
+
+  - name: Add CNAME records
+    when: inventory_hostname == groups['dns_master'][0]
+    community.general.nsupdate:
+      key_name: "dns_update_key"
+      key_algorithm: "hmac-sha256"
+      key_secret: "{{ dns_update_key }}"
+      server: "localhost"
+      zone: "{{ domain_name }}."
+      record: "{{ item.key }}.{{ domain_name }}."
+      type: "CNAME"
+      value: "{{ item.value }}.{{ domain_name }}."
+    loop: "{{ cname_records | dict2items }}"
+
+  - name: Start bind
+    ansible.builtin.service:
+        name: bind9
+        state: started
+        enabled: yes
