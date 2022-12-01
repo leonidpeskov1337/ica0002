@@ -3,8 +3,8 @@ zone "{{ domain_name }}" {
     type master;
     allow-transfer {127.0.0.1; 
     {{ hostvars[groups['dns_slaves'][0]]['ansible_default_ipv4']['address'] }};
-     key dns_transfer_key; };
-    allow-update {127.0.0.1; key dns_update_key; };
+     key tranfer.key; };
+    allow-update {127.0.0.1; key nsupdate.key; };
 
 {% else %}
     type slave;
@@ -16,7 +16,7 @@ zone "{{ domain_name }}" {
 {% if inventory_hostname in groups['dns_slaves'] %} 
 {% for vm in groups['dns_master'] %}
 server {{ hostvars[vm]['ansible_default_ipv4']['address'] }} {
-    keys {dns_transfer_key; };
+    keys {transfer.key; };
 };
 {% endfor %} 
 {% endif %}
@@ -26,12 +26,12 @@ zone "{{ reverse_domain }}" {
     type master;
     allow-transfer {127.0.0.1; 
     {{ hostvars[groups['dns_slaves'][0]]['ansible_default_ipv4']['address'] }};
-     key dns_transfer_key; };
-    allow-update {127.0.0.1; key dns_update_key; };
+     key transfer.key; };
+    allow-update {127.0.0.1; key nsupdate.key; };
 
 {% else %}
     type slave;
     masters { {{ hostvars[groups['dns_master'][0]]['ansible_default_ipv4']['address'] }}; };
 {% endif %}
-    file "db.dungeonmaster.reversed";
+    file "db.dungeonmaster.io.reversed";
 };

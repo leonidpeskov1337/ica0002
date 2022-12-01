@@ -22,15 +22,15 @@
     when: inventory_hostname in groups['dns_master']
     ansible.builtin.template:
         src: db.dungeonmaster.io.j2
-        dest: /var/cache/bind/db.captop.io
+        dest: /var/cache/bind/db.dungeonmaster.io
         force: no
     notify: Reload with rndc
 
   - name: Add db configuration reversed
     when: inventory_hostname in groups['dns_master']
     ansible.builtin.template:
-        src: db.dungeonmaster.reversed.j2
-        dest: /var/cache/bind/db.captop.reversed
+        src: db.dungeonmaster.io.reversed.j2
+        dest: /var/cache/bind/db.dungeonmaster.io.reversed
         force: no
     notify: Reload with rndc
 
@@ -46,7 +46,7 @@
   - name: Add A records
     when: inventory_hostname == groups['dns_master'][0]
     community.general.nsupdate:
-      key_name: "dns_update_key"
+      key_name: "nsupdate.key"
       key_algorithm: "hmac-sha256"
       key_secret: "{{ dns_update_key }}"
       server: "localhost"
@@ -59,7 +59,7 @@
   - name: Add CNAME records
     when: inventory_hostname == groups['dns_master'][0]
     community.general.nsupdate:
-      key_name: "dns_update_key"
+      key_name: "nsupdate.key"
       key_algorithm: "hmac-sha256"
       key_secret: "{{ dns_update_key }}"
       server: "localhost"
@@ -68,9 +68,3 @@
       type: "CNAME"
       value: "{{ item.value }}.{{ domain_name }}."
     loop: "{{ cname_records | dict2items }}"
-
-  - name: Start bind
-    ansible.builtin.service:
-        name: bind9
-        state: started
-        enabled: yes
