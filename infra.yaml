@@ -16,6 +16,7 @@
     become: yes
     roles:
       - prometheus
+    tags: prometheus
 
       
   - name: DNS server
@@ -32,7 +33,7 @@
     become: yes
     roles:
       - dns_client
- 
+    tags: resolv
  
   - name: Database server
     hosts: db_servers
@@ -41,7 +42,7 @@
       - mysql
       - mysql_exporter
       - mysql_backup
-      
+    tags: mysql
       
   - name: HAProxy
     hosts: keepalived
@@ -49,20 +50,22 @@
     roles:
       - haproxy
       - haproxy_exporter
-    tags: pro 
+    tags: haproxy
 
   - name: Keepalived
     hosts: keepalived
     become: yes
     roles:
       - keepalived
-      - keepalived_exporter     
+      - keepalived_exporter
+    tags: keepalived
       
   - name: Docker 
     hosts: all
     become: yes
     roles:
       - docker
+    tags: docker
 
 
   - name: Set up a web server
@@ -70,7 +73,7 @@
     become: yes
     roles:
       - agama
-
+    tags: agama
       
   - name: Install nginx 
     hosts: all
@@ -78,6 +81,7 @@
     roles:
       - nginx
       - nginx_exporter
+    tags: nginx
 
   
 
@@ -86,6 +90,7 @@
     become: yes
     roles:
       - node_exporter
+    tags: node
 
       
   - name: Grafana
@@ -93,7 +98,7 @@
     become: yes
     roles:
       - grafana
-    tags: gr
+    tags: grafana
       
       
   - name: Install influxDB
@@ -102,12 +107,15 @@
     roles:
       - influxdb
       - influxdb_backup
+      - influxdb_exporter
+    tags: influxdb
      
   - name: Create service
     hosts: pinger
     become: yes
     roles:
       - pinger
+    tags: pinger
       
 
   - name: Rsyslog
@@ -116,9 +124,3 @@
     roles:
       - rsyslog
       
-      
-  - name: Install influxDB exporter
-    hosts: influxdb
-    become: yes
-    roles:
-      - influxdb_exporter  

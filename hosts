@@ -1,14 +1,15 @@
-leonidpeskov1337-1  ansible_host=193.40.156.67 ansible_port=32822 ansible_user=ubuntu
-leonidpeskov1337-2  ansible_host=193.40.156.67 ansible_port=28922 ansible_user=ubuntu
+leonidpeskov1337-1  ansible_host=193.40.156.67 ansible_port=2322 ansible_user=ubuntu
+leonidpeskov1337-2  ansible_host=193.40.156.67 ansible_port=14422 ansible_user=ubuntu
+leonidpeskov1337-3  ansible_host=193.40.156.67 ansible_port=4322 ansible_user=ubuntu
 
 [db_servers]
-leonidpeskov1337-2
 leonidpeskov1337-1
+leonidpeskov1337-3
 
 
 [web_servers]
 leonidpeskov1337-1
-leonidpeskov1337-2
+leonidpeskov1337-3
 
 
 [dns_master]
@@ -16,6 +17,7 @@ leonidpeskov1337-2
 
 [dns_slaves]
 leonidpeskov1337-1
+leonidpeskov1337-3
 
 [dns_servers:children]
 dns_master
@@ -28,14 +30,14 @@ leonidpeskov1337-2
 leonidpeskov1337-2
 
 [influxdb]
-leonidpeskov1337-1
+leonidpeskov1337-2
 
 [pinger]
-leonidpeskov1337-1
+leonidpeskov1337-2
 
 [telegraf]
-leonidpeskov1337-1
+leonidpeskov1337-2
 
 [keepalived]
 leonidpeskov1337-1
-leonidpeskov1337-2
+leonidpeskov1337-3

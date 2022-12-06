@@ -13,7 +13,7 @@ vrrp_instance agama {
     {% endif %}
     advert_int 1                            
     virtual_ipaddress {                     
-        192.168.100.{{ hostvars['leonidpeskov1337-1']['ansible_default_ipv4']['address'].split('.')[3] }}/24                   
+        192.168.{{ (hostvars['leonidpeskov1337-1']['ansible_default_ipv4']['address'].split('.')[-2] | int) + 58 }}.{{ hostvars['leonidpeskov1337-1']['ansible_default_ipv4']['address'].split('.')[-1] }}/24                   
     }
     unicast_peer {                          
         {% for vm in groups['keepalived']  %}

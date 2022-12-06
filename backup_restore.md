@@ -6,7 +6,7 @@
 
 #Restore MySQL data from the backup:
 
-    Command to download the backup, run on the managed host (leonidpeskov1337-2) as user backup:
+    Command to download the backup, run on the managed host (leonidpeskov1337-1) as user backup:
     1. Login as backup: 
         sudo su backup
     2. Run command: 
@@ -27,7 +27,7 @@
 
 #Restore InfluxDB data from the backup:
 
-    Command to download the backup, run on the managed host (leonidpeskov1337-1) as user backup:
+    Command to download the backup, run on the managed host (leonidpeskov1337-2) as user backup:
     1. Login as backup: 
         sudo su backup
     2. Run command: 
@@ -41,7 +41,7 @@
     3. Delete existing database:
         influx -execute 'DROP DATABASE telegraf'
     4. Restore telegraf:
-        influxd restore -portable -database telegraf /home/backup/influxdb
+        influxd restore -portable -database telegraf /home/backup/restore/
     5. Run:
         ansible-playbook infra.yaml
     

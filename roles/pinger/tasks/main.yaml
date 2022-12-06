@@ -35,3 +35,9 @@
     notify:
       - Reload systemd
       - Restart pinger
+      
+  - name: Ensure that pinger is running end enabled
+    ansible.builtin.service:
+      name: pinger
+      state: started
+      enabled: yes
