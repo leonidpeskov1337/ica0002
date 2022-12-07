@@ -1,7 +1,6 @@
-leonidpeskov1337-1  ansible_host=193.40.156.67 ansible_port=2322 ansible_user=ubuntu
-leonidpeskov1337-2  ansible_host=193.40.156.67 ansible_port=14422 ansible_user=ubuntu
-leonidpeskov1337-3  ansible_host=193.40.156.67 ansible_port=4322 ansible_user=ubuntu
-
+leonidpeskov1337-1  ansible_host=193.40.156.67 ansible_port=19422 ansible_user=ubuntu
+leonidpeskov1337-2  ansible_host=193.40.156.67 ansible_port=6222 ansible_user=ubuntu
+leonidpeskov1337-3  ansible_host=193.40.156.67 ansible_port=15222 ansible_user=ubuntu
 [db_servers]
 leonidpeskov1337-1
 leonidpeskov1337-3
