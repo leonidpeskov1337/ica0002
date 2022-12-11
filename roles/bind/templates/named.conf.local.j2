@@ -2,8 +2,7 @@ zone "{{ domain_name }}" {
 {% if inventory_hostname in groups['dns_master'] %}   
     type master;
     allow-transfer {127.0.0.1; 
-    {{ hostvars[groups['dns_slaves'][0]]['ansible_default_ipv4']['address'] }};
-     key tranfer.key; };
+    key transfer.key; };
     allow-update {127.0.0.1; key nsupdate.key; };
 
 {% else %}
@@ -25,7 +24,6 @@ zone "{{ reverse_domain }}" {
 {% if inventory_hostname in groups['dns_master'] %}   
     type master;
     allow-transfer {127.0.0.1; 
-    {{ hostvars[groups['dns_slaves'][0]]['ansible_default_ipv4']['address'] }};
      key transfer.key; };
     allow-update {127.0.0.1; key nsupdate.key; };
 

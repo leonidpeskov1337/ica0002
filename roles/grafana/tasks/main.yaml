@@ -46,7 +46,8 @@
   - name: Copy config for grafana
     ansible.builtin.template:
         src: grafana.ini.j2
-        dest: /opt/grafana/grafana.ini   
+        dest: /opt/grafana/grafana.ini
+    no_log: true
 
 
   - name: Install and start grafana in Docker
