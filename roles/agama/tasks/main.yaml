@@ -23,23 +23,17 @@
       build:
         path: /opt/agama
 
+       
   - name: Install and start agama in Docker
     community.docker.docker_container:
-      name: agama
+      name: agama{{item}}
       image: agama
-      published_ports: "{{ agama_port }}:8000"
+      published_ports: "{{ agama_port + item | int }}:8000"
       container_default_behavior: no_defaults
       restart_policy: always
       env:
        AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
-       
-
-  - name: Install and start second agama in Docker
-    community.docker.docker_container:
-      name: agama2
-      image: agama
-      published_ports: "{{ second_agama_port }}:8000"
-      container_default_behavior: no_defaults
-      restart_policy: always
-      env:
-       AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
+    loop:
+      - 1
+      - 2
+      - 3

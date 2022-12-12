@@ -5,12 +5,8 @@
     roles:
       - init
       - backup
+      - setup
     
-  - name: Collect info about all VMs
-    hosts: all 
-    tasks:
-      - setup:
-
   - name: Install prometheus
     hosts: prometheus_servers
     become: yes
