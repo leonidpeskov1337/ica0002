@@ -34,5 +34,4 @@
       env:
        AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_password }}@{{ mysql_host }}/{{ mysql_database }}
     loop:
-      - 1
-      - 2
+      "{{haproxy_agama}}"
