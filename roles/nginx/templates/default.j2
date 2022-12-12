@@ -6,7 +6,7 @@ server {
 
     location / {
         proxy_set_header Host $http_host;
-        proxy_pass http://localhost:{{ agama_port }};
+        proxy_pass http://localhost:{{ agama_port + 1}};
     }
 
     location /node-metrics {
