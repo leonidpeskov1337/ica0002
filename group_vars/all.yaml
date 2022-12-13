@@ -22,10 +22,6 @@ agama_port: 8000
 
 agama_per_vm: 2
 
-agamas_amount:
-    - 1
-    - 2
-
 haproxy_agama:
     - 8001
     - 8002
