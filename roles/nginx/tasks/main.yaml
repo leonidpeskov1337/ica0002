@@ -7,11 +7,12 @@
     name: nginx
     state: latest
     
-# - name: Index page
-#  ansible.builtin.copy:
-#    src: index.html
-#    dest: /var/www/html/index.html
-    
+- name: Start service nginx
+  service:
+      name: nginx
+      state: started
+      enabled: yes
+
 - name: replace default nginx config
   ansible.builtin.template:
     src: default.j2

@@ -21,7 +21,7 @@ NB! All the other services, that are not included under the backup service can b
 
 #RPO
 
-RPO - 28 days
+RPO - 1 day
 
 #Versioning and retention
 
@@ -31,8 +31,8 @@ mysqldump is done automatically every day at 23:45 UTC.
 Incremental backups are done automatically every day at 00:15 UTC.
 Full backups are done on every Saturday at 00:00 UTC.
 First incremental backup stores difference from the last created full backup.
-Backups are retained for 28 days, 28 versions can be stored at the same time.
-The backups that are older than 28 days are deleted at 01:00 UTC every Saturday.
+Backups are retained for 1 day, 1 version can be stored at the same time.
+The backups that are older than 1 days are deleted at 01:00 UTC every Saturday.
 
 InfluxDB Telegraf:
 
